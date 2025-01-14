@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     entry_points={
         "console_scripts": [
-            "findme-hackbit=findme_hackbit:main",  # Ensure this matches your main module function
+            "findme-hackbit=findme_hackbit:main",  
         ],
     },
     install_requires=[
