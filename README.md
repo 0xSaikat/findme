@@ -54,7 +54,7 @@ To use FindME, follow these steps:
 
 # About Me
 
-I am **0xSaikat**, a cybersecurity enthusiast and the founder of [HackBit](https://hackbit.org). I specialize in offensive security, penetration testing, and building automated tools for cybersecurity research. My passion for ethical hacking has driven me to create several tools that contribute to the security community.
+I am **Sakil Hasan Saikat**, a cybersecurity enthusiast and the founder of [HackBit](https://hackbit.org). I specialize in offensive security, penetration testing, and building automated tools for cybersecurity research. My passion for ethical hacking has driven me to create several tools that contribute to the security community.
 
 You can learn more about my work on my personal website: [https://saikat.hackbit.org](https://saikat.hackbit.org).
 
