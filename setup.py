@@ -7,7 +7,7 @@ setup(
     include_package_data=True,
     entry_points={
         "console_scripts": [
-            "findme=findme-hackbit:main",  # Refers to the main() function in findme.py
+            "findme-hackbit=findme-hackbit:main",  # Refers to the main() function in findme.py
         ],
     },
     install_requires=[
