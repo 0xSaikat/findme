@@ -2,12 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name="findme-hackbit.org",
-    version="1.0.4",
+    version="1.0.5",
     packages=find_packages(),
     include_package_data=True,
     entry_points={
         "console_scripts": [
-            "findme=findme:main",  # Refers to the main() function in findme.py
+            "findme=findme-hackbit:main",  # Refers to the main() function in findme.py
         ],
     },
     install_requires=[
