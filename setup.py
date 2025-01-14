@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="findme-hackbit.org", 
-    version="1.0.0",
+    version="1.0.2",
     author="0xSaikat",
     author_email="saikat@hackbit.org",
     description="A tool to search for usernames across various platforms.",
