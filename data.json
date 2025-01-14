@@ -2831,14 +2831,6 @@
     "urlMain": "https://wiki.vg/",
     "username_claimed": "Auri"
   },
-  "xHamster": {
-    "errorType": "status_code",
-    "isNSFW": true,
-    "url": "https://xhamster.com/users/{}",
-    "urlMain": "https://xhamster.com",
-    "urlProbe": "https://xhamster.com/users/{}?old_browser=true",
-    "username_claimed": "blue"
-  },
   "znanylekarz.pl": {
     "errorType": "status_code",
     "url": "https://www.znanylekarz.pl/{}",
