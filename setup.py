@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="findme",
+    name="findme-hackbit.org",
     version="1.0.4",
     packages=find_packages(),
     include_package_data=True,
