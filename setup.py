@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="findme-hackbit", 
+    name="findme-hackbit.org", 
     version="1.0.0",
     author="0xSaikat",
     author_email="saikat@hackbit.org",
