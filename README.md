@@ -40,6 +40,17 @@ To use FindME, follow these steps:
     ```bash
    python3 findme.py
 
+# Use Cases:
+- Cybersecurity Research: Perform reconnaissance to identify potential threats or vulnerabilities linked to a username.
+- Digital Footprint Verification: Verify and track your own online presence to manage your digital identity effectively.
+- Username Availability Check: Quickly assess the availability of usernames across various platforms for branding or personal use.
+- Investigation Support: Assist investigators in tracking online activities or gathering public information about individuals.
+
+# Technical Specifications:
+- Lightweight: Designed to work efficiently without requiring heavy system resources.
+- Cross-Platform: Compatible with major operating systems like Windows, macOS, and Linux.
+- Open-Source: The tool is open-source, enabling users to review the code for transparency and contribute to its development.
+- Secure and Privacy-Focused: Searches are performed securely, ensuring no personal data is stored or misused.
 
 # About Me
 
