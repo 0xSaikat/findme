@@ -24,7 +24,7 @@ By default, FindME searches for usernames on the following platforms:
 2. FindME searches for the username across predefined platforms.
 3. Displays a list of links to profiles where the username exists or is reserved.
 
-## Installation & Usage
+# Installation & Usage
 
 To use FindME, follow these steps:
 
