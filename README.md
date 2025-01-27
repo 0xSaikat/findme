@@ -71,7 +71,16 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/0xsaikat/) for updates
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+<br>
+<br>
+<br>
 
+<h6 align="center">By the Hackers for the Hackers!</h6>
+
+<div align="center">
+  <a href="https://github.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/20/808080/github.png" alt="GitHub"></a>
+  <a href="https://twitter.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/20/808080/twitter.png" alt="X"></a>
+</div>
 
 
 
