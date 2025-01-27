@@ -36,7 +36,7 @@ To use FindME, follow these steps:
    ```bash
    pip3 install -r requirements.txt
 
-1. **Run the FindME tool:**
+3. **Run the FindME tool:**
     ```bash
    python3 findme.py
 
