@@ -68,7 +68,7 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/0xsaikat/) for updates
 
 [HackBit](https://hackbit.org) is a cybersecurity-focused organization committed to discovering vulnerabilities, creating solutions, and making the internet a safer place. Join us in our mission to secure the digital world.
 
-### Waving the Internet Securely!
+##### Waving the Internet Securely!
 
 ### License
 
