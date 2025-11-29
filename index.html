@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMe - Social Media Account Finder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .comet {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: shoot 3s linear infinite;
+        }
+
+        @keyframes shoot {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-300px) translateY(300px);
+                opacity: 0;
+            }
+        }
+
+        .comet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 100%);
+        }
+
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: nebulaPulse 10s infinite alternate;
+        }
+
+        @keyframes nebulaPulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.5); opacity: 0.4; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 4.5rem;
+            font-weight: 900;
+            font-family: 'Arial Black', 'Impact', sans-serif;
+            background: linear-gradient(135deg, #00ff88, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .author {
+            color: #00ff88;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .author a {
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .author a:hover {
+            color: #00d4ff;
+            border-bottom: 1px solid #00d4ff;
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ff88;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        input[type="text"]::placeholder {
+            color: #888;
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            border: none;
+            border-radius: 12px;
+            color: #0a0a0a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        .search-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .loader.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #00ff88;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stats-bar {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stats-bar.show {
+            display: block;
+        }
+
+        .stats-item {
+            display: inline-block;
+            margin: 0 20px;
+            color: #aaa;
+        }
+
+        .stats-value {
+            color: #00ff88;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .current-check {
+            margin-top: 10px;
+            color: #888;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+
+        .results {
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .results.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #00ff88;
+            transform: translateX(10px);
+        }
+
+        .platform-name {
+            font-weight: bold;
+            color: #00ff88;
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .result-url {
+            font-size: 0.85rem;
+            color: #888;
+            margin-left: 15px;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .visit-btn {
+            padding: 8px 16px;
+            background: rgba(0, 255, 136, 0.2);
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .visit-btn:hover {
+            background: #00ff88;
+            color: #0a0a0a;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #ff4444;
+            font-size: 1.1rem;
+        }
+
+        .show-more-section {
+            text-align: center;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .show-more-section.show {
+            display: block;
+        }
+
+        .show-more-btn {
+            padding: 12px 30px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            color: #00d4ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .show-more-btn:hover {
+            background: #00d4ff;
+            color: #0a0a0a;
+        }
+
+        .export-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+
+        .export-section.show {
+            display: block;
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .export-btn {
+            padding: 12px 24px;
+            background: rgba(0, 212, 255, 0.2);
+            border: 1px solid #00d4ff;
+            border-radius: 10px;
+            color: #00d4ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .export-btn:hover {
+            background: #00d4ff;
+            color: #0a0a0a;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            color: #00ff88;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #00ff88;
+            border-radius: 10px;
+            color: #00ff88;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .github-link:hover {
+            background: #00ff88;
+            color: #0a0a0a;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .search-section {
+                padding: 30px 20px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .result-url {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="space-background" id="spaceBackground"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">FINDME</div>
+            <div class="tagline">Discover Social Media Presence Across Platforms</div>
+            <div class="author">By <a href="https://www.linkedin.com/in/0xsaikat" target="_blank">0xSaikat</a> | <a href="https://hackbit.org" target="_blank">hackbit.org</a></div>
+        </header>
+
+        <div class="search-section">
+            <div class="input-group">
+                <input type="text" id="usernameInput" placeholder="Enter username..." />
+            </div>
+            <button class="search-btn" id="searchBtn">Search Accounts</button>
+
+            <div class="loader" id="loader">
+                <div class="spinner"></div>
+                <p style="margin-top: 15px; color: #aaa;">Scanning <span id="platformCount">0</span> platforms...</p>
+                <p class="current-check" id="currentCheck"></p>
+            </div>
+
+            <div class="stats-bar" id="statsBar">
+                <div class="stats-item">
+                    <div class="stats-value" id="foundCount">0</div>
+                    <div>Found</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-value" id="scannedCount">0</div>
+                    <div>Scanned</div>
+                </div>
+                <div class="stats-item">
+                    <div class="stats-value" id="totalCount">0</div>
+                    <div>Total Platforms</div>
+                </div>
+            </div>
+
+            <div class="results" id="results"></div>
+
+            <div class="show-more-section" id="showMoreSection">
+                <button class="show-more-btn" id="showMoreBtn">Show All Results</button>
+            </div>
+
+            <div class="export-section" id="exportSection">
+                <h3 style="text-align: center; color: #00d4ff; margin-bottom: 20px;">Export Results</h3>
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportAsJSON()">📄 Export as JSON</button>
+                    <button class="export-btn" onclick="exportAsCSV()">📊 Export as CSV</button>
+                    <button class="export-btn" onclick="exportAsTXT()">📝 Export as TXT</button>
+                    <button class="export-btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">Fast Search</div>
+                <div class="feature-desc">Concurrent scanning across multiple platforms for instant results</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <div class="feature-title">500+ Platforms</div>
+                <div class="feature-desc">Search across popular social media and professional networks</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Privacy First</div>
+                <div class="feature-desc">All searches are performed client-side, no data stored</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Open Source</div>
+                <div class="feature-desc">Fully transparent code available on GitHub</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 HackBit - Use the CLI tool to get more accurate results</p>
+            <a href="https://github.com/0xSaikat/findme" target="_blank" class="github-link">
+                View on GitHub
+            </a>
+        </footer>
+    </div>
+
+    <script>
+        function createSpaceBackground() {
+            const spaceBackground = document.getElementById('spaceBackground');
+            
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                spaceBackground.appendChild(star);
+            }
+
+            function createComet() {
+                const comet = document.createElement('div');
+                comet.className = 'comet';
+                comet.style.left = Math.random() * 100 + '%';
+                comet.style.top = Math.random() * 50 + '%';
+                comet.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                spaceBackground.appendChild(comet);
+                setTimeout(() => comet.remove(), 3000);
+            }
+
+            setInterval(createComet, 2000);
+
+            for (let i = 0; i < 3; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'nebula';
+                const size = Math.random() * 300 + 200;
+                nebula.style.width = size + 'px';
+                nebula.style.height = size + 'px';
+                nebula.style.left = Math.random() * 100 + '%';
+                nebula.style.top = Math.random() * 100 + '%';
+                const colors = ['rgba(0, 255, 136, 0.3)', 'rgba(0, 212, 255, 0.3)', 'rgba(138, 43, 226, 0.3)'];
+                nebula.style.background = colors[i % colors.length];
+                nebula.style.animationDelay = i * 3 + 's';
+                spaceBackground.appendChild(nebula);
+            }
+        }
+
+        createSpaceBackground();
+
+        async function loadPlatforms() {
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/0xSaikat/findme/main/data.json');
+                const data = await response.json();
+                const platforms = {};
+                for (const [key, value] of Object.entries(data)) {
+                    if (!key.startsWith('$') && typeof value === 'object' && value.url) {
+                        platforms[key] = value;
+                    }
+                }
+                return platforms;
+            } catch (error) {
+                console.error('Error loading platforms:', error);
+                return {};
+            }
+        }
+
+        let searchResults = [];
+        let showingAll = false;
+
+        async function checkUsername(platform, username, platformName) {
+            const url = platform.url.replace('{}', username);
+            
+            // Use CORS proxy to bypass CORS restrictions
+            const corsProxy = 'https://corsproxy.io/?';
+            const proxiedUrl = corsProxy + encodeURIComponent(url);
+            
+            try {
+                const response = await fetch(proxiedUrl, {
+                    method: 'GET',
+                    redirect: 'follow'
+                });
+                
+                // Check if the response is OK (status 200-299)
+                if (response.ok && response.status !== 404) {
+                    return { name: platformName, url: url, found: true };
+                }
+                return null;
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function displayResults(results, showAll = false) {
+            const resultsDiv = document.getElementById('results');
+            const exportSection = document.getElementById('exportSection');
+            const statsBar = document.getElementById('statsBar');
+            const showMoreSection = document.getElementById('showMoreSection');
+            
+            resultsDiv.innerHTML = '';
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = '<div class="no-results">No accounts found. The username may not exist on these platforms.</div>';
+                exportSection.classList.remove('show');
+                statsBar.classList.remove('show');
+                showMoreSection.classList.remove('show');
+            } else {
+                const displayCount = showAll ? results.length : Math.min(6, results.length);
+                
+                for (let i = 0; i < displayCount; i++) {
+                    const result = results[i];
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'result-item';
+                    resultItem.style.animationDelay = (i * 0.05) + 's';
+                    resultItem.innerHTML = `
+                        <span class="platform-name">${result.name}</span>
+                        <span class="result-url">${result.url}</span>
+                        <div class="result-actions">
+                            <a href="${result.url}" target="_blank" class="visit-btn">Visit</a>
+                        </div>
+                    `;
+                    resultsDiv.appendChild(resultItem);
+                }
+                
+                // Show "Show More" button if we have more than 6 results and not showing all
+                if (results.length > 6 && !showAll) {
+                    showMoreSection.classList.add('show');
+                    document.getElementById('showMoreBtn').textContent = `Show All ${results.length} Results`;
+                } else {
+                    showMoreSection.classList.remove('show');
+                }
+                
+                exportSection.classList.add('show');
+                statsBar.classList.add('show');
+            }
+
+            resultsDiv.classList.add('show');
+        }
+
+        async function searchUsername(username) {
+            const platforms = await loadPlatforms();
+            const results = [];
+            const platformEntries = Object.entries(platforms);
+            
+            document.getElementById('totalCount').textContent = platformEntries.length;
+            document.getElementById('platformCount').textContent = platformEntries.length;
+            document.getElementById('scannedCount').textContent = '0';
+            document.getElementById('foundCount').textContent = '0';
+            
+            let scanned = 0;
+            
+            for (let i = 0; i < platformEntries.length; i++) {
+                const [name, platform] = platformEntries[i];
+                
+                // Show current platform being checked
+                document.getElementById('currentCheck').textContent = `Checking: ${name}`;
+                
+                const result = await checkUsername(platform, username, name);
+                
+                if (result) {
+                    results.push(result);
+                    document.getElementById('foundCount').textContent = results.length;
+                    
+                    // Update display after each find
+                    displayResults(results, false);
+                }
+                
+                scanned++;
+                document.getElementById('scannedCount').textContent = scanned;
+                
+                // Small delay to prevent overwhelming
+                await new Promise(resolve => setTimeout(resolve, 50));
+            }
+
+            document.getElementById('currentCheck').textContent = 'Scan complete!';
+            searchResults = results;
+            
+            // Final display with show more button
+            displayResults(results, false);
+            
+            return results;
+        }
+
+        function exportAsJSON() {
+            const dataStr = JSON.stringify(searchResults, null, 2);
+            downloadFile(dataStr, 'findme-results.json', 'application/json');
+        }
+
+        function exportAsCSV() {
+            let csv = 'Platform,URL\n';
+            searchResults.forEach(result => {
+                csv += `"${result.name}","${result.url}"\n`;
+            });
+            downloadFile(csv, 'findme-results.csv', 'text/csv');
+        }
+
+        function exportAsTXT() {
+            let txt = 'FindMe Search Results\n';
+            txt += '='.repeat(50) + '\n\n';
+            searchResults.forEach(result => {
+                txt += `${result.name}: ${result.url}\n`;
+            });
+            downloadFile(txt, 'findme-results.txt', 'text/plain');
+        }
+
+        function copyToClipboard() {
+            let text = '';
+            searchResults.forEach(result => {
+                text += `${result.name}: ${result.url}\n`;
+            });
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Results copied to clipboard!');
+            });
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            link.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const username = document.getElementById('usernameInput').value.trim();
+            
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+
+            const searchBtn = document.getElementById('searchBtn');
+            const loader = document.getElementById('loader');
+            const results = document.getElementById('results');
+            const exportSection = document.getElementById('exportSection');
+            const statsBar = document.getElementById('statsBar');
+            const showMoreSection = document.getElementById('showMoreSection');
+
+            searchBtn.disabled = true;
+            loader.classList.add('active');
+            results.classList.remove('show');
+            results.innerHTML = '';
+            exportSection.classList.remove('show');
+            showMoreSection.classList.remove('show');
+            statsBar.classList.add('show');
+            showingAll = false;
+
+            const foundResults = await searchUsername(username);
+            
+            loader.classList.remove('active');
+            searchBtn.disabled = false;
+            displayResults(foundResults, false);
+        });
+
+        document.getElementById('showMoreBtn').addEventListener('click', () => {
+            showingAll = true;
+            displayResults(searchResults, true);
+        });
+
+        document.getElementById('usernameInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('searchBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>
