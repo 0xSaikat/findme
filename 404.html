@@ -3,56 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
+    <title>404 - Page Not Found | HackBit</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff41;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            background-color: #121212;
-            color: #e0e0e0;
             text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 20px;
         }
-        .container {
-            background-color: #1e1e1e;
-            padding: 2rem;
+        
+        .terminal-window {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff41;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 90%;
-            border: 1px solid #333;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
         }
-        h1 {
-            color: #bb86fc;
-            margin-bottom: 1rem;
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #00ff41;
         }
-        p {
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
+        
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
         }
+        
         .btn {
-            display: inline-block;
-            background-color: #bb86fc;
-            color: #121212;
-            text-decoration: none;
-            padding: 10px 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .btn.close { background: #ff5f56; }
+        .btn.minimize { background: #ffbd2e; }
+        .btn.maximize { background: #27ca3f; }
+        
+        .terminal-title {
+            color: #00ff41;
+            font-size: 14px;
+        }
+        
+        .error-code {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ff0040;
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+            margin-bottom: 10px;
+            animation: glitch 2s infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            10% {
+                transform: translate(-2px, 2px);
+            }
+            20% {
+                transform: translate(2px, -2px);
+            }
+            30% {
+                transform: translate(-2px, -2px);
+            }
+            40% {
+                transform: translate(2px, 2px);
+            }
+            50% {
+                transform: translate(-2px, 2px);
+            }
+            60% {
+                transform: translate(2px, -2px);
+            }
+            70% {
+                transform: translate(-2px, -2px);
+            }
+            80% {
+                transform: translate(2px, 2px);
+            }
+        }
+        
+        .error-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .error-message {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #cccccc;
+        }
+        
+        .command-line {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ff41;
+            padding: 15px;
+            margin: 20px 0;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .prompt {
+            color: #00ff41;
+        }
+        
+        .command {
+            color: #ffffff;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 12px 25px;
+            border: 2px solid;
+            background: transparent;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            border-color: #00ff41;
+            color: #00ff41;
+        }
+        
+        .btn-primary:hover {
+            background: #00ff41;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+        
+        .btn-secondary {
+            border-color: #ff0040;
+            color: #ff0040;
+        }
+        
+        .btn-secondary:hover {
+            background: #ff0040;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 0, 64, 0.5);
+        }
+        
+        .hackbit-logo {
+            font-size: 1.2rem;
+            color: #00ff41;
+            margin-bottom: 20px;
             font-weight: bold;
         }
-        .btn:hover {
-            background-color: #9662db;
+        
+
+        
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666666;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 2.5rem;
+            }
+            
+            .error-title {
+                font-size: 1.4rem;
+            }
+            
+            .terminal-window {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 200px;
+            }
         }
     </style>
 </head>
 <body>
+    <canvas class="matrix-bg" id="matrix"></canvas>
+    
     <div class="container">
-        <h1>404 - Page Not Found! Back to NUBTK Payments System.</h1>
-        <p>Oops! The page you are looking for seems to have wandered off into the digital wilderness.</p>
-        <a href="/" class="btn">Return to Homepage</a>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="btn close"></div>
+                    <div class="btn minimize"></div>
+                    <div class="btn maximize"></div>
+                </div>
+                <div class="terminal-title">saikat@hackbit:~$ error_404</div>
+            </div>
+            
+            <div class="hackbit-logo">
+                &gt; HackBit Security Platform
+            </div>
+            
+            <div class="error-code">404</div>
+            <div class="error-title">NOT FOUND</div>
+            <div class="error-message">
+                The requested resource could not be located in our secure database.<br>
+                This page may have been moved, deleted, or is protected by our security protocols.<br>
+                <strong style="color: #00ff41;">Click anywhere or press any key to return home.</strong>
+            </div>
+            
+            <div class="command-line">
+                <span class="prompt">saikat@hackbit:~$</span> <span class="command">ls -la /var/www/html/</span><br>
+                <span style="color: #ff0040;">drwxr-xr-x 2 root root 4096 Jul 22 15:30 .</span><br>
+                <span style="color: #ff0040;">drwxr-xr-x 3 root root 4096 Jul 22 15:29 ..</span><br>
+                <span style="color: #ff0040;">-rw-r--r-- 1 root root  612 Jul 22 15:30 index.html</span><br>
+                <span style="color: #cccccc;">File not found: 404 error detected</span>
+            </div>
+            
+            <div class="buttons">
+                <a href="https://findme.hackbit.org/" class="btn-primary">Return Home</a>
+                <a href="https://findme.hackbit.org/" class="btn-secondary">Click Anywhere</a>
+            </div>
+        </div>
     </div>
+    
+    <div class="footer">
+        © 2025 HackBit Security Platform | Ethical Hacking & Security Research
+    </div>
+
+    <script>
+        
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px courier';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.globalAlpha = Math.random() * 0.5 + 0.1;
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.98) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+            ctx.globalAlpha = 1;
+        }
+
+        setInterval(draw, 50);
+
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        
+        document.addEventListener('click', () => {
+            window.location.href = 'https://findme.hackbit.org/';
+        });
+
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === 'Escape') {
+                window.location.href = 'https://findme.hackbit.org/';
+            }
+        });
+    </script>
 </body>
 </html>
