@@ -9,7 +9,7 @@ except FileNotFoundError:
 
 setup(
     name="findme-osint",
-    version="1.0.6",  
+    version="1.0.7",  
     py_modules=["findme"],
     include_package_data=True,
     data_files=[
