@@ -7,28 +7,41 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from termcolor import colored
 
 def get_data_file_path(filename):
-    """Get the path to data files."""
-    # Try current directory first
-    if os.path.exists(filename):
-        return filename
+    """Get the path to data files - checks multiple locations."""
     
-    # Try script directory
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_path = os.path.join(script_dir, filename)
-    if os.path.exists(data_path):
-        return data_path
+    possible_paths = [
+        filename,
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), filename),
+        os.path.join(os.path.dirname(__file__), filename),
+    ]
     
-    # Try installation directory
     try:
         import site
+
         for site_dir in site.getsitepackages():
-            data_path = os.path.join(site_dir, filename)
-            if os.path.exists(data_path):
-                return data_path
+            possible_paths.append(os.path.join(site_dir, filename))
+        
+        user_site = site.getusersitepackages()
+        if user_site:
+            possible_paths.append(os.path.join(user_site, filename))
     except:
         pass
     
-    raise FileNotFoundError(f"Cannot find {filename}")
+    possible_paths.extend([
+        os.path.join(sys.prefix, filename),
+        os.path.join(sys.prefix, 'share', filename),
+        os.path.join(sys.prefix, 'lib', filename),
+    ])
+    
+    # Try each path
+    for path in possible_paths:
+        if os.path.exists(path):
+            return path
+    
+    raise FileNotFoundError(
+        f"Cannot find {filename}. Searched in:\n" + 
+        "\n".join(f"  - {p}" for p in possible_paths[:5])
+    )
 
 
 def load_targets(json_file, schema_file):
@@ -37,8 +50,9 @@ def load_targets(json_file, schema_file):
         json_path = get_data_file_path(json_file)
         schema_path = get_data_file_path(schema_file)
     except FileNotFoundError as e:
-        print(f"Error: {e}")
-        print("Make sure data.json and data.schema.json are in the same directory.")
+        print(colored(f"Error: {e}", "red"))
+        print(colored("\nThis usually means the package wasn't installed correctly.", "yellow"))
+        print(colored("Try reinstalling: pip install --force-reinstall findme-osint", "yellow"))
         exit(1)
 
     with open(json_path, 'r') as file:
@@ -80,7 +94,7 @@ def search_username_concurrently(username, platforms, max_threads=10, show_progr
     """Search for a username across multiple platforms using threading."""
     results = []
     
-    # Filter out metadata keys (starting with $)
+
     valid_platforms = {name: platform for name, platform in platforms.items() if not name.startswith("$")}
     total_platforms = len(valid_platforms)
     completed = 0
@@ -114,13 +128,12 @@ def search_username_concurrently(username, platforms, max_threads=10, show_progr
                 status_text = colored('ERROR', 'red')
             
             if show_progress and total_platforms > 0:
-                # Calculate percentage
+                
                 percentage = (completed / total_platforms) * 100
                 progress_bar_length = 40
                 filled = int(progress_bar_length * completed / total_platforms)
                 bar = '█' * filled + '░' * (progress_bar_length - filled)
-                
-                # Update progress line
+            
                 progress_line = (
                     f"\r[{bar}] {percentage:.1f}% | "
                     f"{status_icon} {platform_name[:20]:20s} | "
@@ -131,7 +144,7 @@ def search_username_concurrently(username, platforms, max_threads=10, show_progr
                 sys.stdout.flush()
     
     if show_progress and total_platforms > 0:
-        # Final progress line
+        
         bar = '█' * 40
         final_line = (
             f"\r[{bar}] 100.0% | "
@@ -140,7 +153,7 @@ def search_username_concurrently(username, platforms, max_threads=10, show_progr
         )
         sys.stdout.write(final_line)
         sys.stdout.flush()
-        print("\n")  # New line after progress
+        print("\n")  
     
     return results
 
@@ -185,4 +198,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main() 
+    main()
