@@ -1,17 +1,50 @@
 import json
 import sys
+import os
 import requests
 from jsonschema import validate, ValidationError
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from termcolor import colored
 
+def get_data_file_path(filename):
+    """Get the path to data files."""
+    # Try current directory first
+    if os.path.exists(filename):
+        return filename
+    
+    # Try script directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(script_dir, filename)
+    if os.path.exists(data_path):
+        return data_path
+    
+    # Try installation directory
+    try:
+        import site
+        for site_dir in site.getsitepackages():
+            data_path = os.path.join(site_dir, filename)
+            if os.path.exists(data_path):
+                return data_path
+    except:
+        pass
+    
+    raise FileNotFoundError(f"Cannot find {filename}")
+
+
 def load_targets(json_file, schema_file):
     """Load and validate the target platforms from a JSON file."""
-    with open(json_file, 'r') as file:
+    try:
+        json_path = get_data_file_path(json_file)
+        schema_path = get_data_file_path(schema_file)
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        print("Make sure data.json and data.schema.json are in the same directory.")
+        exit(1)
+
+    with open(json_path, 'r') as file:
         data = json.load(file)
 
-    
-    with open(schema_file, 'r') as schema:
+    with open(schema_path, 'r') as schema:
         schema_data = json.load(schema)
         try:
             validate(instance=data, schema=schema_data)
@@ -152,4 +185,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main() 
