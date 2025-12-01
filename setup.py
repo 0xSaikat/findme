@@ -8,19 +8,16 @@ except FileNotFoundError:
     long_description = "FindME - Hunt down social media accounts by username across 400+ social networks"
 
 setup(
-    name="findme-osint",  
-    version="1.0.5",
-    py_modules=["findme"],  
+    name="findme-osint",
+    version="1.0.6",  
+    py_modules=["findme"],
     include_package_data=True,
-    package_data={
-        '': ['*.json'],  
-    },
     data_files=[
-        ('', ['data.json', 'data.schema.json']), 
+        ('', ['data.json', 'data.schema.json']),
     ],
     entry_points={
         "console_scripts": [
-            "findme=findme:main",  
+            "findme=findme:main",
         ],
     },
     install_requires=[
@@ -37,6 +34,7 @@ setup(
     project_urls={
         "Bug Tracker": "https://github.com/0xSaikat/findme/issues",
         "Source Code": "https://github.com/0xSaikat/findme",
+        "Homepage": "https://saikat.hackbit.org",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -46,6 +44,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
@@ -55,6 +54,6 @@ setup(
         "Topic :: Internet",
         "Environment :: Console",
     ],
-    keywords="cybersecurity username-search osint reconnaissance social-media hackbit findme",
+    keywords="osint cybersecurity username-search reconnaissance social-media hackbit findme",
     python_requires='>=3.6',
 )
