@@ -1,4 +1,5 @@
 import json
+import sys
 import requests
 from jsonschema import validate, ValidationError
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -42,23 +43,72 @@ def check_username(platform, username):
         return None
 
 
-def search_username_concurrently(username, platforms, max_threads=10):
+def search_username_concurrently(username, platforms, max_threads=10, show_progress=True):
     """Search for a username across multiple platforms using threading."""
     results = []
+    
+    # Filter out metadata keys (starting with $)
+    valid_platforms = {name: platform for name, platform in platforms.items() if not name.startswith("$")}
+    total_platforms = len(valid_platforms)
+    completed = 0
+    found_count = 0
+    
+    if show_progress and total_platforms > 0:
+        print(colored(f"Searching across {total_platforms} platforms...\n", "cyan"))
+    
     with ThreadPoolExecutor(max_threads) as executor:
         future_to_platform = {
             executor.submit(check_username, platform, username): name
-            for name, platform in platforms.items()
-            if not name.startswith("$")  
+            for name, platform in valid_platforms.items()
         }
+        
         for future in as_completed(future_to_platform):
             platform_name = future_to_platform[future]
+            completed += 1
+            
             try:
                 result = future.result()
                 if result:
                     results.append((platform_name, result))
+                    found_count += 1
+                    status_icon = colored('✓', 'green')
+                    status_text = colored('FOUND', 'green')
+                else:
+                    status_icon = colored('○', 'yellow')
+                    status_text = colored('NOT FOUND', 'yellow')
             except Exception:
-                pass
+                status_icon = colored('✗', 'red')
+                status_text = colored('ERROR', 'red')
+            
+            if show_progress and total_platforms > 0:
+                # Calculate percentage
+                percentage = (completed / total_platforms) * 100
+                progress_bar_length = 40
+                filled = int(progress_bar_length * completed / total_platforms)
+                bar = '█' * filled + '░' * (progress_bar_length - filled)
+                
+                # Update progress line
+                progress_line = (
+                    f"\r[{bar}] {percentage:.1f}% | "
+                    f"{status_icon} {platform_name[:20]:20s} | "
+                    f"Completed: {completed}/{total_platforms} | "
+                    f"Found: {colored(str(found_count), 'green')}"
+                )
+                sys.stdout.write(progress_line)
+                sys.stdout.flush()
+    
+    if show_progress and total_platforms > 0:
+        # Final progress line
+        bar = '█' * 40
+        final_line = (
+            f"\r[{bar}] 100.0% | "
+            f"Completed: {total_platforms}/{total_platforms} | "
+            f"Found: {colored(str(found_count), 'green')}/{total_platforms}"
+        )
+        sys.stdout.write(final_line)
+        sys.stdout.flush()
+        print("\n")  # New line after progress
+    
     return results
 
 
@@ -89,8 +139,7 @@ def main():
     username = input(colored("[", "green") + colored("*", "red") + colored("]", "green") + " Enter username to search social account: ")
     print(colored("\n[", "green") + colored("*", "red") + colored("] Checking username ", "green", attrs=["bold"]) + colored(username, "red", attrs=["bold"]) + colored(" on:\n", "green", attrs=["bold"]))
 
-
-    results = search_username_concurrently(username, platforms)
+    results = search_username_concurrently(username, platforms, show_progress=True)
     if results:
         for platform_name, url in results:
             print(f"{colored('[', 'green')}{colored('+', 'red')}{colored(']', 'green')} {colored(platform_name, 'green', attrs=['bold'])}: {url}")
