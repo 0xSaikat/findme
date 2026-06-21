@@ -2,7 +2,6 @@
 
 ![Penstaller](https://img.shields.io/badge/Social_Media_Account_Finding-OSINT_Toolkit-red)
 ![PyPI](https://img.shields.io/pypi/v/findme-osint?color=blue&label=PyPI) ![Downloads](https://img.shields.io/pypi/dm/findme-osint?color=green) ![License](https://img.shields.io/github/license/0xSaikat/findme) ![Python](https://img.shields.io/pypi/pyversions/findme-osint)
-
 FindME is a powerful and simple-to-use CLI-based tool that helps users search for social media and online platform profiles associated with a given username. Whether you're performing reconnaissance, verifying your digital footprint, or simply curious about username availability, FindME provides results quickly and efficiently.
 
 ![logo](bg.jpeg)
@@ -12,7 +11,7 @@ FindME is a powerful and simple-to-use CLI-based tool that helps users search fo
 
 ## 🌐 Try It Online
 
-**Web Version Available:** [findme.hackbit.org](https://findme.hackbit.org)
+**Web Version Available:** [findme.hackzar.com](https://findme.hackzar.com)
 
 Try FindME directly in your browser without any installation!
 
@@ -94,7 +93,7 @@ FindME searches for usernames on **400+ platforms** including:
 - **🪶 Lightweight:** Minimal resource usage, works on any system
 - **🌍 Cross-Platform:** Compatible with Windows, macOS, and Linux
 - **📖 Open-Source:** Transparent code that you can review and contribute to
-- **🌐 Web Version:** Try it online at [findme.hackbit.org](https://findme.hackbit.org)
+- **🌐 Web Version:** Try it online at [findme.hackzar.com](https://findme.hackzar.com)
 
 ---
 
@@ -163,7 +162,7 @@ To add support for new platforms, edit `data.json` with the platform details:
 ## 🔗 Links
 
 - **PyPI Package:** [pypi.org/project/findme-osint](https://pypi.org/project/findme-osint/)
-- **Web Version:** [findme.hackbit.org](https://findme.hackbit.org)
+- **Web Version:** [findme.hackzar.com](https://findme.hackzar.com)
 - **GitHub Repository:** [github.com/0xSaikat/findme](https://github.com/0xSaikat/findme)
 - **Documentation:** [GitHub Wiki](https://github.com/0xSaikat/findme/wiki)
 - **Report Issues:** [GitHub Issues](https://github.com/0xSaikat/findme/issues)
@@ -172,18 +171,18 @@ To add support for new platforms, edit `data.json` with the platform details:
 
 ## 👤 About the Author
 
-I am **Sakil Hasan Saikat (0xSaikat)**, a cybersecurity enthusiast and the founder of [HackBit](https://hackbit.org). I specialize in offensive security, penetration testing, and building automated tools for cybersecurity research. My passion for ethical hacking has driven me to create several tools that contribute to the security community.
+I am **Sakil Hasan Saikat (0xSaikat)**, a cybersecurity enthusiast and the founder of [Hackzar](https://hackzar.com). I specialize in offensive security, penetration testing, and building automated tools for cybersecurity research. My passion for ethical hacking has driven me to create several tools that contribute to the security community.
 
-- **Website:** [saikat.hackbit.org](https://saikat.hackbit.org)
+- **Website:** [saikat.hackzar.com](https://saikat.hackzar.com)
 - **LinkedIn:** [linkedin.com/in/0xsaikat](https://www.linkedin.com/in/0xsaikat/)
 - **GitHub:** [github.com/0xSaikat](https://github.com/0xSaikat)
 - **Twitter:** [@0xSaikat](https://twitter.com/0xSaikat)
 
 ---
 
-## 🏢 About HackBit
+## 🏢 About Hackzar
 
-[**HackBit**](https://hackbit.org) is a cybersecurity-focused organization committed to discovering vulnerabilities, creating solutions, and making the internet a safer place. We build open-source security tools and contribute to the global cybersecurity community.
+[**Hackzar**](https://hackzar.com) is a cybersecurity-focused organization committed to discovering vulnerabilities, creating solutions, and making the internet a safer place. We build open-source security tools and contribute to the global cybersecurity community.
 
 **Mission:** *Waving the Internet Securely!*
 
@@ -233,5 +232,5 @@ If you find FindME useful, please consider:
   <a href="https://github.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/30/808080/github.png" alt="GitHub"></a>
   <a href="https://twitter.com/0xSaikat"><img src="https://img.icons8.com/material-outlined/30/808080/twitter.png" alt="Twitter"></a>
   <a href="https://www.linkedin.com/in/0xsaikat/"><img src="https://img.icons8.com/material-outlined/30/808080/linkedin.png" alt="LinkedIn"></a>
-  <a href="https://findme.hackbit.org"><img src="https://img.icons8.com/material-outlined/30/808080/internet.png" alt="Web"></a>
+  <a href="https://hackzar.com"><img src="https://img.icons8.com/material-outlined/30/808080/internet.png" alt="Web"></a>
 </div>
