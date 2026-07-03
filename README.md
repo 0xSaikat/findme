@@ -11,7 +11,7 @@ FindME is a powerful and simple-to-use CLI-based tool that helps users search fo
 
 ## 🌐 Try It Online
 
-**Web Version Available:** [findme.hackzar.com](https://findme.hackzar.com)
+**Web Version Available:** [https://findme.0xsaikat.qzz.io](https://findme.0xsaikat.qzz.io)
 
 Try FindME directly in your browser without any installation!
 
@@ -93,7 +93,7 @@ FindME searches for usernames on **400+ platforms** including:
 - **🪶 Lightweight:** Minimal resource usage, works on any system
 - **🌍 Cross-Platform:** Compatible with Windows, macOS, and Linux
 - **📖 Open-Source:** Transparent code that you can review and contribute to
-- **🌐 Web Version:** Try it online at [findme.hackzar.com](https://findme.hackzar.com)
+- **🌐 Web Version:** Try it online at [https://findme.0xsaikat.qzz.io](https://findme.0xsaikat.qzz.io/)
 
 ---
 
@@ -173,20 +173,10 @@ To add support for new platforms, edit `data.json` with the platform details:
 
 I am **Sakil Hasan Saikat (0xSaikat)**, a cybersecurity enthusiast and the founder of [Hackzar](https://hackzar.com). I specialize in offensive security, penetration testing, and building automated tools for cybersecurity research. My passion for ethical hacking has driven me to create several tools that contribute to the security community.
 
-- **Website:** [saikat.hackzar.com](https://saikat.hackzar.com)
+- **Website:** [https://0xsaikat.qzz.io](https://0xsaikat.qzz.io/)
 - **LinkedIn:** [linkedin.com/in/0xsaikat](https://www.linkedin.com/in/0xsaikat/)
 - **GitHub:** [github.com/0xSaikat](https://github.com/0xSaikat)
 - **Twitter:** [@0xSaikat](https://twitter.com/0xSaikat)
-
----
-
-## 🏢 About Hackzar
-
-[**Hackzar**](https://hackzar.com) is a cybersecurity-focused organization committed to discovering vulnerabilities, creating solutions, and making the internet a safer place. We build open-source security tools and contribute to the global cybersecurity community.
-
-**Mission:** *Waving the Internet Securely!*
-
-Join us in our mission to secure the digital world.
 
 ---
 
