@@ -1,4 +1,3 @@
-/* ── Reset & Foundations ──────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -40,7 +39,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Canvas Background ───────────────────────────────────────── */
 #spaceCanvas {
     position: fixed;
     inset: 0;
@@ -50,7 +48,6 @@ body {
     pointer-events: none;
 }
 
-/* ── Layout ──────────────────────────────────────────────────── */
 .container {
     position: relative;
     z-index: 1;
@@ -59,7 +56,6 @@ body {
     padding: 20px 24px;
 }
 
-/* ── Header ──────────────────────────────────────────────────── */
 header {
     text-align: center;
     padding: 70px 20px 50px;
@@ -144,7 +140,6 @@ header {
     border-bottom-color: var(--accent-alt);
 }
 
-/* ── Search Section ──────────────────────────────────────────── */
 .search-section {
     background: var(--bg-card);
     backdrop-filter: blur(20px) saturate(1.4);
@@ -166,7 +161,6 @@ header {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Input ────────────────────────────────────────────────────── */
 .input-group {
     position: relative;
     margin-bottom: 20px;
@@ -220,7 +214,6 @@ input[type="text"]::placeholder {
     font-weight: 400;
 }
 
-/* ── Search Button ────────────────────────────────────────────── */
 .search-btn {
     width: 100%;
     padding: 16px 24px;
@@ -285,7 +278,6 @@ input[type="text"]::placeholder {
     transform: translateX(3px);
 }
 
-/* ── Loader ──────────────────────────────────────────────────── */
 .loader {
     display: none;
     text-align: center;
@@ -343,7 +335,6 @@ input[type="text"]::placeholder {
     font-weight: 400;
 }
 
-/* ── Stats Bar ───────────────────────────────────────────────── */
 .stats-bar {
     display: none;
     margin-top: 24px;
@@ -388,7 +379,6 @@ input[type="text"]::placeholder {
     margin-top: 2px;
 }
 
-/* ── Results ─────────────────────────────────────────────────── */
 .results {
     margin-top: 28px;
     opacity: 0;
@@ -482,7 +472,6 @@ input[type="text"]::placeholder {
     border-radius: var(--radius-md);
 }
 
-/* ── Show More ───────────────────────────────────────────────── */
 .show-more-section {
     text-align: center;
     margin-top: 16px;
@@ -513,7 +502,6 @@ input[type="text"]::placeholder {
     box-shadow: 0 0 20px var(--accent-alt-glow);
 }
 
-/* ── Export ───────────────────────────────────────────────────── */
 .export-section {
     margin-top: 28px;
     padding-top: 28px;
@@ -568,7 +556,6 @@ input[type="text"]::placeholder {
     color: var(--accent-alt);
 }
 
-/* ── Features ────────────────────────────────────────────────── */
 .features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -633,7 +620,6 @@ input[type="text"]::placeholder {
     position: relative;
 }
 
-/* ── Footer ──────────────────────────────────────────────────── */
 footer {
     text-align: center;
     padding: 48px 20px 40px;
@@ -672,7 +658,6 @@ footer p {
     box-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 768px) {
     .logo {
         font-size: 2.8rem;
@@ -734,13 +719,11 @@ footer p {
     }
 }
 
-/* ── Selection ───────────────────────────────────────────────── */
 ::selection {
     background: var(--accent-glow);
     color: var(--text-primary);
 }
 
-/* ── Scrollbar ───────────────────────────────────────────────── */
 ::-webkit-scrollbar {
     width: 6px;
 }
