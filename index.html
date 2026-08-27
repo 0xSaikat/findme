@@ -40,42 +40,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FindMe - Social Media Account Finder</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="space-background" id="spaceBackground"></div>
+    <canvas id="spaceCanvas"></canvas>
 
     <div class="container">
         <header>
-            <div class="logo">FINDME</div>
+            <div class="logo-wrapper">
+                <div class="logo">FINDME</div>
+                <div class="logo-glow"></div>
+            </div>
             <div class="tagline">Discover Social Media Presence Across Platforms</div>
-            <div class="author">By <a href="https://www.linkedin.com/in/0xsaikat" target="_blank">0xSaikat</a> | <a href="https://hackbit.org" target="_blank">hackbit.org</a></div>
+            <div class="author">By <a href="https://www.linkedin.com/in/0xsaikat" target="_blank">0xSaikat</a> <span class="sep">•</span> <a href="https://hackbit.org" target="_blank">hackbit.org</a></div>
         </header>
 
         <div class="search-section">
             <div class="input-group">
-                <input type="text" id="usernameInput" placeholder="Enter username..." />
+                <div class="input-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </div>
+                <input type="text" id="usernameInput" placeholder="Enter username to search..." />
             </div>
-            <button class="search-btn" id="searchBtn">Search Accounts</button>
+            <button class="search-btn" id="searchBtn">
+                <span class="btn-text">Search Accounts</span>
+                <span class="btn-icon">→</span>
+            </button>
 
             <div class="loader" id="loader">
-                <div class="spinner"></div>
-                <p style="margin-top: 15px; color: #aaa;">Scanning <span id="platformCount">0</span> platforms...</p>
+                <div class="spinner-ring">
+                    <div class="spinner-dot"></div>
+                </div>
+                <p class="loader-text">Scanning <span id="platformCount">0</span> platforms…</p>
                 <p class="current-check" id="currentCheck"></p>
             </div>
 
             <div class="stats-bar" id="statsBar">
                 <div class="stats-item">
                     <div class="stats-value" id="foundCount">0</div>
-                    <div>Found</div>
+                    <div class="stats-label">Found</div>
                 </div>
+                <div class="stats-divider"></div>
                 <div class="stats-item">
                     <div class="stats-value" id="scannedCount">0</div>
-                    <div>Scanned</div>
+                    <div class="stats-label">Scanned</div>
                 </div>
+                <div class="stats-divider"></div>
                 <div class="stats-item">
                     <div class="stats-value" id="totalCount">0</div>
-                    <div>Total Platforms</div>
+                    <div class="stats-label">Total</div>
                 </div>
             </div>
 
@@ -86,12 +104,20 @@
             </div>
 
             <div class="export-section" id="exportSection">
-                <h3 style="text-align: center; color: #00d4ff; margin-bottom: 20px;">Export Results</h3>
+                <h3 class="export-title">Export Results</h3>
                 <div class="export-buttons">
-                    <button class="export-btn" onclick="exportAsJSON()">📄 Export as JSON</button>
-                    <button class="export-btn" onclick="exportAsCSV()">📊 Export as CSV</button>
-                    <button class="export-btn" onclick="exportAsTXT()">📝 Export as TXT</button>
-                    <button class="export-btn" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                    <button class="export-btn" onclick="exportAsJSON()">
+                        <span class="export-icon">{ }</span> JSON
+                    </button>
+                    <button class="export-btn" onclick="exportAsCSV()">
+                        <span class="export-icon">📊</span> CSV
+                    </button>
+                    <button class="export-btn" onclick="exportAsTXT()">
+                        <span class="export-icon">📝</span> TXT
+                    </button>
+                    <button class="export-btn" onclick="copyToClipboard()">
+                        <span class="export-icon">📋</span> Copy
+                    </button>
                 </div>
             </div>
         </div>
